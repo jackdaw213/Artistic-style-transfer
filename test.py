@@ -20,14 +20,14 @@ parser.add_argument('-m', '--model', type=str,
 
 args = parser.parse_args()
 
-model = torch.load(args.model)
+model = torch.jit.load('model/model.pt')
 model.eval()
 
 content = F.to_tensor(Image.open(args.content).convert("RGB"))
-content = utils.norm_pil(content)
+content = utils.norm_pil(content).unsqueeze(dim=0).float()
 
 style = F.to_tensor(Image.open(args.style).convert("RGB"))
-style = utils.norm_pil(style)
+style = utils.norm_pil(style).unsqueeze(dim=0).float()
 
 with torch.no_grad():
     output = model(content, style)
