@@ -19,14 +19,38 @@ largest one I found was 30000x29605 - 220MB (⌐■_■) ( •_•)>⌐■-■. 
 OOM error which confused me a bit tbh, thought it was because of a bug in my dali_pipeline
 """
 class StyleDataset(torch.utils.data.Dataset):
-    def __init__(self):
-        pass
+    def __init__(self, content_dir, style_dir):
+        self.content = os.listdir(content_dir)
+        self.style = os.listdir(style_dir)
+        self.pair = list(zip(self.content, self.style))
+
+        self.content_dir = content_dir
+        self.style_dir = style_dir
+
+        self.transform = transforms.Compose([
+            transforms.Resize((512), antialias=True),
+            transforms.RandomCrop(256),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+        ])
 
     def __len__(self):
-        pass
+        return len(self.pair)
 
-    def __getitem__(self):
-        pass
+    def __getitem__(self, index):
+        content, style = self.pair[index]
+
+        content = os.path.join(self.content_dir, content)
+        style = os.path.join(self.style_dir, style)
+
+        content = Image.open(content).convert("RGB")
+        style = Image.open(style).convert("RGB")
+
+        content = self.transform(content)
+        style = self.transform(style)
+
+        return content, style
     
     @staticmethod
     @pipeline_def(device_id=0)
