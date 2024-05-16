@@ -80,6 +80,8 @@ parser.add_argument('--enable_dali', action='store_true',
                     help='Enable DALI for faster data loading')
 parser.add_argument('--enable_amp', action='store_true',
                     help='Enable Mixed Precision for faster training and lower memory usage')
+parser.add_argument('--enable_wandb', action='store_true',
+                    help='Enable WanDB to monitor training process')
 
 parser.add_argument('-ampt', '--amp_dtype', type=str,
                     default=AMP_TYPE,
@@ -135,9 +137,17 @@ else:
     optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
 
 print("Training...")
-trainer.train_model(model, 
-                optimizer, 
-                loss, 
-                train_loader, 
-                val_loader, 
-                args)
+if args.enable_wandb:
+    trainer.train_model(model, 
+                    optimizer, 
+                    loss, 
+                    train_loader, 
+                    val_loader, 
+                    args)
+else:
+    trainer.train_model_no_wandb(model, 
+                    optimizer, 
+                    loss, 
+                    train_loader, 
+                    val_loader, 
+                    args)

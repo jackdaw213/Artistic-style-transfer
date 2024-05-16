@@ -44,7 +44,7 @@ This should prepare the Conda environment for both training and testing (pretrai
 3. Train the model.
 
     ```python
-    python train.py --enable_dali --enable_amp
+    python train.py --enable_dali --enable_amp --enable_wandb
     ```
 
     ```
@@ -61,9 +61,10 @@ This should prepare the Conda environment for both training and testing (pretrai
              [--momentum MOMENTUM]
              [--resume_id RESUME_ID]
              [--checkpoint_freq CHECKPOINT_FREQ]
+             [--amp_dtype AMP_DTYPE]
              [--enable_dali]
              [--enable_amp]
-             [--amp_dtype AMP_DTYPE]
+             [--enable_wandb]
     ```
 
     The model was trained on an RTX 3080 10G for 10 epoches with DALI and AMP.
