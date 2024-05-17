@@ -26,7 +26,7 @@ This should prepare the Conda environment for both training and testing (pretrai
 
 ## Train
 
-1. Download the [COCO](https://github.com/nightrome/cocostuff) dataset for content images and the [Wikiart](https://www.kaggle.com/c/painter-by-numbers) dataset for style images. Extract the files and organize them into the 'train' folder, with subfolders 'train_content', 'val_content', 'train_style', and 'val_style'.
+1. Download the [COCO](https://github.com/nightrome/cocostuff) dataset for content images and the [Wikiart](https://www.kaggle.com/c/painter-by-numbers) dataset for style images. Extract the files and organize them into the 'data' folder, with subfolders 'train_content', 'val_content', 'train_style', and 'val_style'.
 
 2. Preprocess the dataset
 
