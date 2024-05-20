@@ -1,9 +1,9 @@
-# Pytorch_Adain_from_scratch
+# Artistic-style-transfer
 Unofficial Pytorch implementation of [Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization [Huang+, ICCV2017]](http://openaccess.thecvf.com/content_ICCV_2017/papers/Huang_Arbitrary_Style_Transfer_ICCV_2017_paper.pdf)
 
 Original torch implementation from the author can be found [here](https://github.com/xunhuang1995/AdaIN-style).
 
-This implementation uses Nvidia DALI and AMP to massively speed up training. WanDB is also used for monitoring the training process.
+This implementation uses Nvidia DALI and AMP to accelerate the training process, with WanDB employed for monitoring.
 
 ## Prerequisites
 
@@ -67,15 +67,16 @@ This should prepare the Conda environment for both training and testing (pretrai
              [--enable_wandb]
     ```
 
-    The model was trained on an RTX 3080 10G for 10 epoches with DALI and AMP.
+    The model was trained on an RTX 3080 10G for 10 epoches with Dataloader and AMP.
 
-    | Training setup | Batch size | GPU memory usage | Training time |
-    |----------------|------------|------------------|---------------|
-    | DALI           | 4          | 6GB              | 5.5 hours     |
-    | DALI + AMP     | 8          | 6.5GB            | 3 hours       |
-    | Dataloader     | NaN           | NaN             | NaN      |
+    | Training setup      | Batch size | GPU memory usage | Training time |
+    |---------------------|------------|------------------|---------------|
+    | DALI                | 4          | 6GB              | 3.8 hours     |
+    | DALI + AMP          | 8          | 6.5GB            | 2.2 hours     |
+    | DataLoader          | 8          | 9GB              | 4.4 hours     |
+    | DataLoader + AMP    | 8          | 4GB              | 2.4 hours     |
 
-    WARNING: Nvidia DALI only support Nvidia GPUs and only RTX 3000/Ampere GPUs (and above) support BFloat16. Using Float16 might causes NaN loss during training while BFloat16 does not.
+    WARNING: Nvidia DALI only supports Nvidia GPUs. BFloat16 is supported only on RTX 3000/Ampere GPUs and above, while GPU Direct Storage (GDS) is supported only on server-class GPUs. Using Float16 might cause NaN loss during training, whereas BFloat16 does not.
 
     
 
@@ -99,6 +100,10 @@ This should prepare the Conda environment for both training and testing (pretrai
 ## Result
 
 ![image](https://github.com/jackdaw213/Artistic-style-transfer/blob/master/img/comp.jpg)
+![image](https://github.com/jackdaw213/Artistic-style-transfer/blob/master/img/comp1.jpg)
+![image](https://github.com/jackdaw213/Artistic-style-transfer/blob/master/img/comp2.jpg)
+![image](https://github.com/jackdaw213/Artistic-style-transfer/blob/master/img/comp3.jpg)
+![image](https://github.com/jackdaw213/Artistic-style-transfer/blob/master/img/comp5.jpg)
 
 ## References
 
