@@ -1,15 +1,13 @@
 import torch
 import os
 import torchvision.transforms as transforms
-from cucim.skimage.color import rgb2lab
 from PIL import Image
-import torch.nn.functional as F
 
 import nvidia.dali.types as types
 from nvidia.dali.pipeline import pipeline_def
 import nvidia.dali.fn as fn
 
-import utils
+import exinput
 
 """
 So the dataset I'm using for style representation is this one https://www.kaggle.com/c/painter-by-numbers/data
@@ -53,17 +51,15 @@ class StyleDataset(torch.utils.data.Dataset):
         return content, style
     
     @staticmethod
-    @pipeline_def(device_id=0)
-    def dali_pipeline(content_dir, style_dir):
-        content_images, _ = fn.readers.file(file_root=content_dir, 
-                                            files=utils.list_images(content_dir),
-                                            random_shuffle=True, 
-                                            name="Reader")
-        
-        style_images, _ = fn.readers.file(file_root=style_dir, 
-                                            files=utils.list_images(style_dir),
-                                            random_shuffle=True)
-        
+    @pipeline_def(device_id=0, py_start_method="spawn")
+    def dali_pipeline(content_dir, style_dir, bs):
+        content_images, style_images = fn.external_source(
+            source=exinput.ExternalInputCallable(content_dir, style_dir, bs), 
+            num_outputs=2,
+            parallel=True, 
+            batch=False
+        )
+
         content_images = fn.decoders.image(content_images, device="mixed", output_type=types.RGB)
         style_images = fn.decoders.image(style_images, device="mixed", output_type=types.RGB)
 
@@ -84,6 +80,7 @@ class StyleDataset(torch.utils.data.Dataset):
         I was defeated and was about to give up but mama ain't raised a B- losser. So I 
         gathered all of my A+ winner energy and found the above
         """
+
         content_images = fn.crop_mirror_normalize(content_images, 
                                                 dtype=types.FLOAT,
                                                 crop=(256, 256),
