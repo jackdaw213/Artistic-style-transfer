@@ -67,7 +67,7 @@ This should prepare the Conda environment for both training and testing (pretrai
              [--enable_wandb]
     ```
 
-    The model was trained on an RTX 3080 10G for 10 epoches with Dataloader and AMP.
+    The model was trained on an RTX 3080 10G for 10 epoches.
 
     | Training setup      | Batch size | GPU memory usage | Training time |
     |---------------------|------------|------------------|---------------|
