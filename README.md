@@ -15,11 +15,12 @@ This implementation uses Nvidia DALI and AMP to accelerate the training process,
    ```
 2. Install Conda and create an environment
     ```shell
-    conda create -n artistic_style_transfer
+    conda create -n artistic_style_transfer python=3.12
     ```
 3. Install all dependencies from requirements.txt
     ```shell
     conda activate artistic_style_transfer
+    pip install nvidia-pyindex
     pip install -r requirements.txt
     ```
 This should prepare the Conda environment for both training and testing (pretrained model available below)
