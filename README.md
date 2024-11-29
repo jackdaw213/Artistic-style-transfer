@@ -1,7 +1,7 @@
 # Artistic-style-transfer
 Unofficial Pytorch implementation of [Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization [Huang+, ICCV2017]](http://openaccess.thecvf.com/content_ICCV_2017/papers/Huang_Arbitrary_Style_Transfer_ICCV_2017_paper.pdf)
 
-Original torch implementation from the author can be found [here](https://github.com/xunhuang1995/AdaIN-style).
+Original Lua implementation from the author can be found [here](https://github.com/xunhuang1995/AdaIN-style).
 
 This implementation uses Nvidia DALI and AMP to accelerate the training process, with WanDB employed for monitoring.
 
@@ -109,6 +109,6 @@ This should prepare the Conda environment for both training and testing (pretrai
 ## References
 
 - [X. Huang and S. Belongie. "Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization.", in ICCV, 2017.](http://openaccess.thecvf.com/content_ICCV_2017/papers/Huang_Arbitrary_Style_Transfer_ICCV_2017_paper.pdf)
-- [Original implementation in Torch.](https://github.com/xunhuang1995/AdaIN-style) 
+- [Original implementation in Lua.](https://github.com/xunhuang1995/AdaIN-style) 
 - [Irasin's implementation.](https://github.com/irasin/Pytorch_AdaIN)
 
